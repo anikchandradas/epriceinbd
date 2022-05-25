@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multipc BD</title>
+    <style>
+        body{
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+            width: 100vw;
+            background-color: #89cbdb;
+        }
+        body img{
+            width:100vh;
+            height:100vh;
+        }
+        #countdown{
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        #countdown ul{
+            padding: 0 30px;
+            font-size: 38px;
+            list-style: none;
+            display: inline-flex;
+            flex-direction: row;
+            background-color: rgba(0, 0, 0, 0.336);
+            border-radius: 12px;
+            justify-content: center;
+        }
+        #countdown ul li{
+            font-weight: bold;
+            color: #fff;
+            font-family:Arial, Helvetica, sans-serif;
+            text-shadow: 2px 2px #000000;
+        }
+        @media only screen and (max-width: 600px) {
+            #countdown{
+                top: 70%;
+                width: 80%;
+            }
+            #countdown ul{
+                font-size: 30px;
+            }
+            body img{
+                width: 150%!important;
+                height: 80vh;
+                overflow: hidden;
+                position: absolute;
+            }
+            #countdown ul{
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="epriceinbd.png" style="width:100%">
+    <div id="countdown">
+        <ul>
+            <li><span id="days"></span>&nbsp;day&nbsp;&nbsp;</li>
+            <li><span id="hours"></span>&nbsp;Hour&nbsp;&nbsp;</li>
+            <li><span id="minutes"></span>&nbsp;Min&nbsp;&nbsp;</li>
+            <li><span id="seconds"></span>&nbsp;Sec&nbsp;&nbsp;</li>
+        </ul>
+    </div>
+</body>
+</html>
+
+
+
+  <script>
+      (function () {
+        const second = 1000,
+            minute = second * 60,
+            hour = minute * 60,
+            day = hour * 24;
+
+            //I'm adding this section so I don't have to keep updating this pen every year :-)
+            //remove this if you don't need it
+            let today = new Date(),
+            dd = String(today.getDate()).padStart(2, "0"),
+            mm = String(today.getMonth() + 1).padStart(2, "0"),
+            yyyy = today.getFullYear(),
+            nextYear = yyyy,
+            dayMonth = "12/08/",
+            birthday = dayMonth + yyyy;
+
+        
+            today = mm + "/" + dd + "/" + yyyy;
+            if (today > birthday) {
+                birthday = dayMonth + nextYear;
+            }
+            //end
+  
+  const countDown = new Date(birthday).getTime(),
+      x = setInterval(function() {    
+
+        const now = new Date().getTime(),
+              distance = countDown - now;
+
+        document.getElementById("days").innerText = Math.floor(distance / (day)),
+          document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
+          document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
+          document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+
+        //do something later when date is reached
+        if (distance < 0) {
+          document.getElementById("countdown").style.display = "none";
+          clearInterval(x);
+        }
+        //seconds
+      }, 0)
+  }());
+  </script>
